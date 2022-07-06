@@ -2,7 +2,11 @@
   <div class="login-container">
         <van-nav-bar
   title="登录"
-/>
+>
+<template #left>
+  <van-icon name="cross" color="white" @click="$router.back()"/>
+</template>
+</van-nav-bar>
 <van-form @submit="onSubmit" ref="form" >
   <van-field
     v-model="user.mobile"
@@ -10,7 +14,7 @@
     placeholder="请输入手机号"
     :rules="rules.mobile"
     required
-  >
+ >
   <template #left-icon>
     <Toutiao icon="shouji"/>
   </template>
@@ -50,9 +54,6 @@ export default {
     return {
       isShowCountDown: false,
       isDisabled: false,
-
-      //   username: '',
-      //   password: '',
       rules: {
         mobile: [{
           required: true,
@@ -83,9 +84,13 @@ export default {
     async  onSubmit (value) {
       // 表单验证
       try {
-        await login(value)
-        // const res = await login(this.user)
+        // await login(value)
+        const res = await login(this.user)
+        console.log(res)
+        // vuex存储数据
+        this.$store.commit('setUser', res.data.data)
         Toast.success('登录成功')
+        this.$router.push('/')
       } catch (e) {
         console.log(e)
         Toast.fail(e?.response?.data?.message || '服务器端错误')

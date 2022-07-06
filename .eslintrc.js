@@ -14,6 +14,8 @@ module.exports = {
     'vue/comment-directive': 'off',
     'vue/multi-word-component-names': 'off',
     'no-unused-vars': 'off',
-    'no-template-curly-in-string': 'off'
+    'no-template-curly-in-string': 'off',
+    'eol-last': 'off',
+    'no-const-assign': 'off'
   }
 }
